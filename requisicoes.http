@@ -1,0 +1,55 @@
+### Variável de Ambiente Local
+@baseUrl = http://localhost:8080/clientes
+
+### 1. Contagem total de clientes
+GET {{baseUrl}}/contar
+Accept: application/json
+
+###
+
+### 2. Listar todos os clientes (Find All)
+GET {{baseUrl}}
+Accept: application/json
+
+###
+
+### 3. Buscar cliente por ID (Find By ID)
+GET {{baseUrl}}/1
+Accept: application/json
+
+###
+
+### 4. Buscar cliente por Nome (Find By Name)
+GET {{baseUrl}}/nome/TechCorp
+Accept: application/json
+
+###
+
+### 5. Cadastrar novo cliente (Create)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "Parceiro Beta Soluções",
+  "email": "beta@parceiro.com",
+  "telefone": "(19) 98888-7777",
+  "status": "ATIVO"
+}
+
+###
+
+### 6. Atualizar cliente existente (Update)
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+  "nome": "TechCorp Brasil Ltda",
+  "email": "contato@techcorp.com.br",
+  "telefone": "(11) 99999-8888",
+  "status": "ATIVO"
+}
+
+###
+
+### 7. Excluir cliente por ID (Delete)
+DELETE {{baseUrl}}/4

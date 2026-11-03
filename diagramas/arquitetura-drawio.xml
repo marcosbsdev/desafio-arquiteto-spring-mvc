@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" modified="2026-11-03T14:55:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="mvc-c4-architecture" name="Arquitetura Spring MVC - C4 Model">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Header -->
+        <mxCell id="title" value="Bootcamp Arquiteto(a) de Software - Arquitetura de Solução MVC (Spring Boot REST API)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="180" y="20" width="800" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Boundary: Sistema Externo -->
+        <mxCell id="box_client" value="Parceiro Comercial (B2B)&#xa;[Cliente HTTP / Frontend]&#xa;&#xa;Consome dados via JSON" style="shape=rectangle;whiteSpace=wrap;html=1;rounded=1;arcSize=10;fillColor=#1E40AF;strokeColor=#1E3A8A;fontColor=#ffffff;fontStyle=1;fontSize=13;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Spring Boot Box Boundary -->
+        <mxCell id="spring_box" value="Aplicação Spring Boot (Padrão MVC) - Porta 8080" style="swimlane;whiteSpace=wrap;html=1;fillColor=#F3F4F6;strokeColor=#9CA3AF;fontStyle=1;fontSize=14;fontColor=#1F2937;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="560" height="370" as="geometry" />
+        </mxCell>
+
+        <!-- Controller -->
+        <mxCell id="comp_controller" value="&lt;b&gt;CONTROLLER&lt;/b&gt;&lt;br&gt;ClienteController&lt;br&gt;&lt;i&gt;[@RestController]&lt;/i&gt;&lt;hr&gt;• GET /clientes (Find All)&lt;br&gt;• GET /clientes/{id} (Find By ID)&lt;br&gt;• GET /clientes/nome/{nome}&lt;br&gt;• GET /clientes/contar&lt;br&gt;• POST /clientes (Create)&lt;br&gt;• PUT /clientes/{id} (Update)&lt;br&gt;• DELETE /clientes/{id} (Delete)" style="shape=rectangle;whiteSpace=wrap;html=1;rounded=1;fillColor=#3B82F6;strokeColor=#1D4ED8;fontColor=#ffffff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="spring_box">
+          <mxGeometry x="30" y="50" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Service -->
+        <mxCell id="comp_service" value="&lt;b&gt;SERVICE (Regras de Negócio)&lt;/b&gt;&lt;br&gt;ClienteService&lt;br&gt;&lt;i&gt;[@Service]&lt;/i&gt;&lt;hr&gt;• Validações de unicidade&lt;br&gt;• Gerenciamento transacional&lt;br&gt;• Orquestração de chamadas" style="shape=rectangle;whiteSpace=wrap;html=1;rounded=1;fillColor=#10B981;strokeColor=#047857;fontColor=#ffffff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="spring_box">
+          <mxGeometry x="310" y="50" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Repository -->
+        <mxCell id="comp_repo" value="&lt;b&gt;REPOSITORY (Acesso a Dados)&lt;/b&gt;&lt;br&gt;ClienteRepository&lt;br&gt;&lt;i&gt;[JpaRepository]&lt;/i&gt;&lt;hr&gt;• findByNome()&lt;br&gt;• count() / findAll()&lt;br&gt;• save() / deleteById()" style="shape=rectangle;whiteSpace=wrap;html=1;rounded=1;fillColor=#8B5CF6;strokeColor=#6D28D9;fontColor=#ffffff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="spring_box">
+          <mxGeometry x="310" y="240" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Model / Entity -->
+        <mxCell id="comp_model" value="&lt;b&gt;MODEL (Entidade de Domínio)&lt;/b&gt;&lt;br&gt;Cliente &amp; ClienteDTO&lt;br&gt;&lt;i&gt;[@Entity tb_clientes]&lt;/i&gt;&lt;hr&gt;id, nome, email, telefone, status" style="shape=rectangle;whiteSpace=wrap;html=1;rounded=1;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#ffffff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="spring_box">
+          <mxGeometry x="30" y="240" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Database H2 -->
+        <mxCell id="box_db" value="&lt;b&gt;H2 Database&lt;/b&gt;&#xa;[Banco Relacional em Memória]&#xa;&#xa;jdbc:h2:mem:clientesdb&#xa;Console: /h2-console" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#EF4444;strokeColor=#B91C1C;fontColor=#ffffff;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="930" y="320" width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Connectors -->
+        <mxCell id="edge1" value="HTTP REST / JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1E3A8A;fontStyle=1;fontSize=11;" edge="1" parent="1" source="box_client" target="comp_controller">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge2" value="Injeção &amp; Delegação" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#10B981;fontStyle=1;fontSize=11;" edge="1" parent="spring_box" source="comp_controller" target="comp_service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" value="Executa queries" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#8B5CF6;fontStyle=1;fontSize=11;" edge="1" parent="spring_box" source="comp_service" target="comp_repo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge4" value="Mapeia JPA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;strokeColor=#D97706;fontStyle=1;fontSize=11;" edge="1" parent="spring_box" source="comp_repo" target="comp_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge5" value="JDBC / SQL" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;" edge="1" parent="1" source="comp_repo" target="box_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

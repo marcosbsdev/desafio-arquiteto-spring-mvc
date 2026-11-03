@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: api-clientes-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: clientesdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_clientes_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d clientesdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - clientes-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-clientes-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/clientesdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clientes-network
+
+volumes:
+  postgres_clientes_data:
+
+networks:
+  clientes-network:
+    driver: bridge
